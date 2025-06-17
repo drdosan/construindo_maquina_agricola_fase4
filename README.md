@@ -9,7 +9,7 @@
 # 🌿 Construindo Máquina Agrícola Inteligente - Fase 4
 
 
-## Nome do grupo
+## Grupo 6
 
 ## 👨‍🎓 Integrantes: 
 | Matrícula                 | Aluno               						  |
@@ -217,15 +217,9 @@ Senão → Permitir irrigação conforme sensores
 
 ## 🗃 Histórico de lançamentos
 
-* 0.5.0 - XX/XX/2024
+* 0.2.0 - 18/06/2025 (Repositório Atual)
     * 
-* 0.4.0 - XX/XX/2024
-    * 
-* 0.3.0 - XX/XX/2024
-    * 
-* 0.2.0 - XX/XX/2024
-    * 
-* 0.1.0 - XX/XX/2024
+* 0.1.0 - 20/05/2025 - (https://github.com/drdosan/construindo_maquina_agricola)
     *
 
 ## 📋 Licença
