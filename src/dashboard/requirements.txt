@@ -1,4 +1,7 @@
 streamlit
-requests
+pymysql
 pandas
-plotly
+scikit-learn
+joblib
+SQLAlchemy
+streamlit-autorefresh

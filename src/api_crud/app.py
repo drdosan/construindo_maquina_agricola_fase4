@@ -455,7 +455,7 @@ def prever_irrigacao():
     conn = get_connection()
     with conn:
         with conn.cursor() as cur:
-            cur.execute("INSERT INTO DECISAO_IRRIGACAO (pode_irrigar) VALUES (%s)", (pode_irrigar,))
+            cur.execute("INSERT INTO DECISAO_IRRIGACAO (pode_irrigar, tipo_decisao) VALUES (%s, %s)", (pode_irrigar, "CLIMA"))
         conn.commit()
     return jsonify({
         "pode_irrigar": pode_irrigar,

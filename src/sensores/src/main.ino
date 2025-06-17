@@ -2,7 +2,10 @@
 #include <HTTPClient.h>
 #include <ArduinoJson.h>
 #include "DHT.h"
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
 
+// === Definições de pinos e sensores ===
 #define PIN_FOSFORO 13
 #define PIN_POTASSIO 12
 #define PIN_PH A0
@@ -15,13 +18,17 @@ const char* serverUrl = "http://192.168.0.151:5000/leituras";
 const char* statusUrl = "http://192.168.0.151:5000/status-irrigacao";
 
 DHT dht(PIN_UMIDADE, DHTTYPE);
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
 unsigned long ultimoToggle = 0;
 bool fosforo = false;
 bool potassio = false;
 
+// === Setup ===
 void setup() {
   Serial.begin(115200);
   dht.begin();
+
   pinMode(PIN_FOSFORO, INPUT_PULLUP);
   pinMode(PIN_POTASSIO, INPUT_PULLUP);
 
@@ -32,8 +39,16 @@ void setup() {
     Serial.print(".");
   }
   Serial.println("✅ Conectado!");
+
+  lcd.init();
+  lcd.backlight();
+  lcd.setCursor(0, 0);
+  lcd.print("FarmTech Init...");
+  delay(1500);
+  lcd.clear();
 }
 
+// === Verifica se pode irrigar via API ===
 bool verificarPodeIrrigar() {
   HTTPClient http;
   http.begin(statusUrl);
@@ -61,6 +76,26 @@ bool verificarPodeIrrigar() {
   return false;  // se der erro, previne irrigação
 }
 
+// === Atualiza informações no LCD ===
+void atualizarLCD(float umidade, float ph, bool fosforo, bool potassio, bool irrigando) {
+  lcd.clear();
+
+  lcd.setCursor(0, 0);
+  lcd.print("Umid:");
+  lcd.print((int)umidade);
+  lcd.print("% PH:");
+  lcd.print(ph, 1);
+
+  lcd.setCursor(0, 1);
+  lcd.print("F:");
+  lcd.print(fosforo ? "1" : "0");
+  lcd.print(" P:");
+  lcd.print(potassio ? "1" : "0");
+  lcd.print(" IRR:");
+  lcd.print(irrigando ? "SIM" : "NAO");
+}
+
+// === Loop principal ===
 void loop() {
   unsigned long agora = millis();
 
@@ -103,15 +138,23 @@ void loop() {
           Serial.println("❌ Falha no envio");
         }
 
+        atualizarLCD(umidade, ph, fosforo, potassio, true);
         http.end();
       } else {
         Serial.println("🌧️ Irrigação suspensa por previsão de chuva.");
+        atualizarLCD(umidade, ph, fosforo, potassio, false);
       }
     } else {
       Serial.println("⚠️ Wi-Fi desconectado");
+      lcd.clear();
+      lcd.setCursor(0, 0);
+      lcd.print("Wi-Fi Desconectado");
     }
   } else {
     Serial.println("⚠️ Leitura inválida dos sensores");
+    lcd.clear();
+    lcd.setCursor(0, 0);
+    lcd.print("Erro sensores");
   }
 
   delay(5000);
