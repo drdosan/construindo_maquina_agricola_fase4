@@ -34,10 +34,12 @@ Projeto acadêmico dividido em duas fases principais: **coleta de dados ambienta
 ## 📁 Estrutura de pastas
 
 ```
-construindo_maquina_agricola/
+assets/
+|── simulacao_esp32.png
+│
+src/
 ├── sensores/
-│   ├── main.ino
-│   └── simulacao_esp32.png
+│   └── main.ino
 │
 ├── api_crud/
 │   ├── app.py
