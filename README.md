@@ -80,7 +80,7 @@ Nesta primeira fase, desenvolvemos um sistema de monitoramento e automação par
 
 ### 🖼️ Circuito no Wokwi:
 
-<img src="sensores/simulacao_esp32.png" alt="Simulação ESP32 no Wokwi" width="600"/>
+<img src="assets/simulacao_esp32.png" alt="Simulação ESP32 no Wokwi" width="600"/>
 
 ### 📂 Entregáveis:
 
