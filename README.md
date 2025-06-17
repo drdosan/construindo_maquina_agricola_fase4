@@ -33,7 +33,8 @@ Projeto acadêmico dividido em duas fases principais: **coleta de dados ambienta
 
 ## 📁 Estrutura de pastas
 
-src/
+```
+construindo_maquina_agricola/
 ├── sensores/
 │   ├── main.ino
 │   └── simulacao_esp32.png
@@ -48,6 +49,8 @@ src/
 │
 ├── .gitignore
 └── README.md
+```
+
 
 - `sensores/`: Projeto da Fase 1, com o código C/C++ do ESP32 e imagem do circuito Wokwi.
 - `api_crud/`: Projeto da Fase 2, com a API Flask documentada com Swagger.
