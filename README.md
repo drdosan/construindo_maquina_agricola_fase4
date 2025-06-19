@@ -49,22 +49,17 @@ src/
 │   ├── app.py
 │   └── requirements.txt
 │
+├── machine_learning/
+│   ├── predict_model.py
+│   ├── train_model.py
+│   ├── modelo_irrigacao.pkl
+│   └── requirements.txt
+│
 ├── .gitignore
 └── README.md
 ```
 
-
-- `sensores/`: Projeto da Fase 1, com o código C/C++ do ESP32 e imagem do circuito Wokwi.
-- `api_crud/`: Projeto da Fase 2, com a API Flask documentada com Swagger.
-- `dashboard/`: Projeto “Ir Além”, com dashboard interativo em Streamlit.
-- `main.ino`: Código-fonte responsável pela leitura dos sensores e envio dos dados via HTTP.
-- `simulacao_esp32.png`: Imagem ilustrativa da montagem simulada no Wokwi.
-- `app.py`: Código principal da API ou dashboard, dependendo da pasta.
-- `requirements.txt`: Dependências de cada módulo.
-- `.gitignore`: Arquivos e pastas ignorados pelo Git.
-- `README.md`: Este documento com explicações completas do projeto.
-
-## 🚀 Entrega 1: Sistema de Sensores e Controle com ESP32
+## 🚀 Sistema de Sensores e Controle com ESP32
 
 Nesta primeira fase, desenvolvemos um sistema de monitoramento e automação para plantio inteligente utilizando o ESP32 e sensores simulados.
 
@@ -95,9 +90,14 @@ Nesta primeira fase, desenvolvemos um sistema de monitoramento e automação par
 
 ---
 
-## 💾 Entrega 2: Armazenamento de Dados em Banco SQL com Python
+## 💾 Armazenamento de Dados em Banco MySQL com Python
 
 A segunda fase consiste em simular o envio dos dados dos sensores para um sistema de banco de dados por meio de uma API RESTful em Python com Flask.
+
+### ✅ Banco de Dados:
+Banco de dados usado foi um MySQL.
+- `/assets/MODELO_BANCO.sql` - Modelo do Dump do Banco de Dados
+- `/assets/APRIMORAMENTO.sql` - Arquivo .sql com as melhorias feitas no banco de dados.
 
 ### ✅ Metas:
 
@@ -138,7 +138,7 @@ Acesse a documentação interativa da API em:
 
 ---
 
-## 🌟 Projeto “Ir Além” – Dashboard Interativo com Streamlit
+## Dashboard Interativo com Streamlit
 
 Como parte das atividades opcionais da disciplina, este projeto também inclui um dashboard interativo que permite visualizar em tempo real os dados coletados pelos sensores instalados em campo.
 
@@ -208,6 +208,28 @@ Senão → Permitir irrigação conforme sensores
 - Outro endpoint `GET /status-irrigacao` é consumido pelo ESP32 no loop principal
   - Se `pode_irrigar = true` → os dados são enviados via POST normalmente
   - Se `pode_irrigar = false` → o envio é bloqueado e a bomba permanece desligada
+
+
+## 🧠 Módulo de Machine Learning (`/machine_learning`)
+
+Nesta pasta estão os scripts responsáveis pelo treinamento e uso do modelo preditivo de irrigação baseado em dados reais coletados pelos sensores.
+
+### 📁 Estrutura da pasta
+
+- `train_model.py` — Script que conecta ao banco de dados, carrega os dados da tabela `LEITURA_SENSOR`, treina um modelo de árvore de decisão (`DecisionTreeClassifier`) e salva o resultado como `modelo_irrigacao.pkl`.
+- `predict_model.py` — Script que carrega o modelo `.pkl` salvo e permite fazer previsões manualmente, exibindo o resultado e a probabilidade.
+
+---
+
+### ⚙️ Como rodar o modelo
+
+1. **Treinar o modelo:**
+
+```bash
+cd machine_learning
+pip install -r requirements.txt
+python train_model.py
+```
 
 
 ## 🔧 Melhorias Implementadas na Fase 4
