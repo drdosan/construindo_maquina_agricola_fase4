@@ -13,6 +13,10 @@
 [https://youtu.be/ClA9DwxtclQ](https://youtu.be/ClA9DwxtclQ)
 
 
+### ▶️ Vídeo de Evidência do Funcionamento do Projeto Fase 4.
+
+[https://youtu.be/KEdM_Xw_xbk](https://youtu.be/KEdM_Xw_xbk)
+
 
 ## Grupo 6
 
