@@ -94,7 +94,7 @@ Nesta primeira fase, desenvolvemos um sistema de monitoramento e automação par
 
 A segunda fase consiste em simular o envio dos dados dos sensores para um sistema de banco de dados por meio de uma API RESTful em Python com Flask.
 
-### ✅ Banco de Dados:
+### 🗃️ Banco de Dados:
 Banco de dados usado foi um MySQL.
 - `/assets/MODELO_BANCO.sql` - Modelo do Dump do Banco de Dados
 - `/assets/APRIMORAMENTO.sql` - Arquivo .sql com as melhorias feitas no banco de dados.
