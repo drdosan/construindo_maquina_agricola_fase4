@@ -156,35 +156,30 @@ Transformar dados técnicos em representações visuais fáceis de entender, pos
 - **Python**
 - **Streamlit** (aplicação web interativa)
 - **Pandas** (manipulação de dados)
-- **Plotly** (visualização gráfica)
-- **Integração com API Flask (Fase 2)**
+- **Integração com Banco de Dados (Fase 4)**
 
 ### 🖥️ Funcionalidades do Painel
 
-- Gráficos por sensor com separação por cor
-- Tabela de dados com nomes reais dos sensores
-- Atualização em tempo real dos dados com base na API
-- Interface simples acessível via navegador
+- Indicador de Umidade Média
+- Indicador de Recomendação de Irrigação
+- Gráfico de Variação da Umidade do Solo
+- Gráfico de Parâmetros do Solo (pH, Fósforo, Potássio)
+- Gráfico de Decisão do Modelo de Machine Learning
+- Atualização Realtime de 10 em 10 segundos
 
 ### ▶️ Como Executar
 
 ```bash
 cd dashboard
 pip install -r requirements.txt
-streamlit run app.py
+streamlit run dashboard.py
 ```
 
 Depois disso, acesse o painel em: [http://localhost:8501](http://localhost:8501)
 
-### 📂 Entregáveis
-
-- `dashboard/app.py`: Código completo do painel
-- `dashboard/requirements.txt`: Dependências necessárias
-- Atualização automática com base na API desenvolvida
-
 ---
 
-## ☁️ Projeto “Ir Além 2” – Integração com API Meteorológica (OpenWeather)
+## Integração com API Meteorológica (OpenWeather)
 
 Este desafio opcional demonstra a capacidade do sistema de irrigação em tomar decisões mais inteligentes, utilizando dados climáticos reais via API pública.
 
@@ -214,15 +209,40 @@ Senão → Permitir irrigação conforme sensores
   - Se `pode_irrigar = true` → os dados são enviados via POST normalmente
   - Se `pode_irrigar = false` → o envio é bloqueado e a bomba permanece desligada
 
-### 📂 Entregáveis
 
-- Código Flask atualizado com os endpoints `/clima/prever-irrigacao` e `/status-irrigacao`
-- Integração no código `.ino` com verificação da decisão antes de enviar a leitura
-- Lógica pronta para expansão futura com IA, sensores climáticos ou regras avançadas
+## 🔧 Melhorias Implementadas na Fase 4
+
+### ✅ 1. Otimização do Código C/C++ no ESP32 com LCD e Serial Plotter
+- Código do ESP32 otimizado com uso apropriado de tipos (`int`, `float`, `bool`) visando economia de memória.
+- Inclusão de display **LCD 16x2 via I2C** para exibição local dos dados em tempo real: umidade, pH e status de irrigação.
+- Implementação do **Serial Plotter** no Wokwi para visualização gráfica dinâmica da umidade do solo.
+- Comentários adicionados explicando as otimizações de memória e lógica no código.
+
+### ✅ 2. Desenvolvimento do Modelo Preditivo com Scikit-learn
+- Pipeline Python desenvolvido para ingestão dos dados diretamente do banco MySQL (via `SQLAlchemy` e `pandas`).
+- Treinamento de um modelo `DecisionTreeClassifier` com base nas variáveis: `valor_umidade`, `valor_ph`, `valor_fosforo`, `valor_potassio`.
+- Exportação do modelo treinado como `.pkl` utilizando `joblib`.
+- Criação de script `predict_model.py` que permite prever manualmente a necessidade de irrigação com exibição de probabilidade.
+
+### ✅ 3. Atualização do Dashboard com Streamlit
+- Dashboard desenvolvido em **Streamlit**, com leitura dos dados diretamente do banco de dados.
+- Interface atualizada automaticamente a cada 10 segundos via `streamlit-autorefresh`.
+- Funcionalidades:
+  - 📈 Gráfico de linha da variação da **umidade** ao longo do tempo.
+  - 📊 Gráficos de **pH**, **fósforo** e **potássio** em tempo real.
+  - 🧠 Classificação automática das leituras com base no modelo de ML.
+  - 📊 Gráfico de barras com a proporção entre decisões de “Irrigar” e “Não Irrigar”.
+- Layout responsivo e informações exibidas de forma clara e objetiva.
+
+### ✅ 4. Aprimoramento do Banco de Dados
+- Adição da coluna `tipo_decisao` na tabela `DECISAO_IRRIGACAO` para distinguir entre decisões por **clima** ou por **modelo de ML**.
+- Limpeza de dados inválidos e strings residuais nos campos numéricos com validação durante leitura via `pandas`.
+- Uso de `DOUBLE`, `NOT NULL`, e coerção segura (`errors='coerce'`) para garantir integridade dos dados coletados.
+
 
 ## 🗃 Histórico de lançamentos
 
-* 0.2.0 - 18/06/2025 (Repositório Atual)
+* 0.2.0 - 19/06/2025 (Repositório Atual)
     * 
 * 0.1.0 - 20/05/2025 - (https://github.com/drdosan/construindo_maquina_agricola)
     *
