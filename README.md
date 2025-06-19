@@ -64,23 +64,31 @@ src/
 └── README.md
 ```
 
-## 🚀 Sistema de Sensores e Controle com ESP32
+## 🚀 Sistema de Sensores e Controle com ESP32 (Fase 4)
 
-Nesta primeira fase, desenvolvemos um sistema de monitoramento e automação para plantio inteligente utilizando o ESP32 e sensores simulados.
+Nesta fase, aprimoramos o sistema de monitoramento inteligente baseado em ESP32, incorporando novos recursos de visualização local e melhorias de desempenho.
 
-### ✅ Metas:
+### ✅ Melhorias e Funcionalidades:
 
-- Construção do circuito de sensores no [Wokwi](https://wokwi.com/)
-- Código em C/C++ utilizando PlatformIO
-- Acionamento automático de um relé (bomba de irrigação)
-- Comentários no código explicando a lógica
-- Registro e documentação da montagem no README
+- Conexão do display **LCD 16x2 via I2C** para exibição em tempo real de:
+  - Umidade do solo
+  - pH
+  - Status da irrigação (ativado ou não)
+- Otimizações no código em C/C++:
+  - Uso eficiente de tipos de dados (`int`, `float`, `bool`) para economia de memória
+  - Estrutura clara e comentada para facilitar entendimento e manutenção
+- Visualização gráfica ao vivo pelo **Serial Plotter** do Wokwi
+- Simulação completa do circuito no [Wokwi](https://wokwi.com/)
 
 ### 🔌 Componentes simulados:
 
-- Sensor de umidade
-- Sensor de pH
-- Relé de irrigação
+- Sensor de umidade (DHT22)
+- Leitura analógica de pH (via `analogRead`)
+- LEDs para representar:
+  - Relé de irrigação
+  - Detecção de fósforo
+  - Detecção de potássio
+- Display **LCD 16x2 com interface I2C**
 - ESP32 DevKit v1
 
 ### 🖼️ Circuito no Wokwi:
@@ -89,9 +97,9 @@ Nesta primeira fase, desenvolvemos um sistema de monitoramento e automação par
 
 ### 📂 Entregáveis:
 
-- `main.ino` com o código completo e comentado
-- `simulacao_esp32.png` com a imagem do circuito
-- Documentação explicando o funcionamento
+- `main.ino` com o código completo, otimizado e comentado
+- `diagram.json` com a montagem do circuito simulada
+- `simulacao_esp32.png` com o print da montagem
 
 ---
 
